@@ -1,0 +1,34 @@
+{
+  "quote_line_oracle": {
+    "quantity": 2,
+    "unit_price": 100000,
+    "discount_rate": 0.1,
+    "vat_rate": 0.08,
+    "subtotal": 200000,
+    "discount_amount": 20000,
+    "net_before_vat": 180000,
+    "vat_amount": 14400,
+    "total": 194400
+  },
+  "receivable_oracle": {
+    "order_total": 800000,
+    "confirmed_payment": 500000,
+    "pending_payment": 200000,
+    "confirmed_receivable": 300000,
+    "pending_does_not_reduce_receivable": 300000
+  },
+  "conversion_oracle": {
+    "accepted": 1,
+    "rejected": 1,
+    "expired": 1,
+    "open": 2,
+    "decided_denominator": 3,
+    "rate": 0.3333
+  },
+  "delivery_oracle": {
+    "ordered": 10,
+    "shipments": [6, 4],
+    "delivered": 10,
+    "remaining": 0
+  }
+}

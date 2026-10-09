@@ -1,0 +1,61 @@
+{
+  "asset_id": "GROUP-C-SALES-CORE@1.0.0-vi",
+  "product_id": "GS-007",
+  "recorded_at": "2026-10-07T10:38:58Z",
+  "status": "G2_GOOGLE_PARTIAL",
+  "drive": {
+    "project_folder_id": "1yvgmPKQjiwSTbxCOsBdjZl7KzcjHcFjR",
+    "product_folder_id": "1somfKHxhDIr9kW-ywJPaeCQMAFkFeTau",
+    "product_folder_url": "https://drive.google.com/drive/folders/1somfKHxhDIr9kW-ywJPaeCQMAFkFeTau",
+    "apps_script_source_folder_id": "16GHCyNRUyRPplJMynVU3v_xdIq-T8eja",
+    "evidence_folder_id": "1sfoUWIyANn7xJzVS7_SLvnMSuYxvXq_p"
+  },
+  "spreadsheet": {
+    "id": "1iq5ufr1kXNrdrqI7avhDXk7Kl3dlEDSh7snOUYt5a7Q",
+    "url": "https://docs.google.com/spreadsheets/d/1iq5ufr1kXNrdrqI7avhDXk7Kl3dlEDSh7snOUYt5a7Q/edit",
+    "mime_type": "application/vnd.google-apps.spreadsheet",
+    "converted_from_xlsx": true,
+    "sheet_count": 15,
+    "locale": "vi_VN",
+    "requested_time_zone": "Asia/Ho_Chi_Minh",
+    "google_normalized_time_zone": "Asia/Saigon"
+  },
+  "verification": {
+    "local_tests": "52/52 PASS",
+    "dashboard_quote_count": 6,
+    "dashboard_conversion_rate": "33,3%",
+    "dashboard_order_value": "3.700.000 ₫",
+    "dashboard_confirmed_collections": "1.400.000 ₫",
+    "dashboard_receivable": "2.300.000 ₫",
+    "quote_line_oracle_N2": "194.400 ₫",
+    "order_DH_001": {
+      "total": "800.000 ₫",
+      "confirmed_collections": "500.000 ₫",
+      "receivable": "300.000 ₫"
+    },
+    "formula_error_scan": {
+      "range_per_sheet": "A1:Z100",
+      "sheet_count": 15,
+      "errors": {
+        "#REF!": 0,
+        "#VALUE!": 0,
+        "#N/A": 0,
+        "#DIV/0!": 0,
+        "#NAME?": 0
+      }
+    }
+  },
+  "apps_script": {
+    "source_uploaded": true,
+    "installer_file_id": "11mK3fgeW_d963Y-gDMlsiQI4PXJ7k6Ob",
+    "code_file_id": "1Wg6pfhmyb04ctGBA247QoyC0LG7JonL7",
+    "index_file_id": "1HNN-x2YeOuIQpb9paO6AZyFFyxTI_kBi",
+    "manifest_file_id": "1XVzd65pB1f19hKiM_0lHXqdhAddAK0zl",
+    "bundle_file_id": "1wChJ_gY8F7Ln23WZUrd7tBIuh3i5jEUo",
+    "script_project_created": false,
+    "runtime_verified": false,
+    "web_app_deployed": false,
+    "blocker": "Google Drive connector does not expose Apps Script project or deployment APIs; browser session is not authenticated."
+  },
+  "publishable": false
+}

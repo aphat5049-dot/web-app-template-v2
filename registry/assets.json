@@ -1,0 +1,25 @@
+{
+  "assets": [
+    {
+      "asset_id": "GROUP-C-SALES-CORE@1.0.0-vi",
+      "product_id": "GS-007",
+      "drive_folder_id": "1somfKHxhDIr9kW-ywJPaeCQMAFkFeTau",
+      "drive_folder_url": "https://drive.google.com/drive/folders/1somfKHxhDIr9kW-ywJPaeCQMAFkFeTau",
+      "spreadsheet_id": "1iq5ufr1kXNrdrqI7avhDXk7Kl3dlEDSh7snOUYt5a7Q",
+      "spreadsheet_url": "https://docs.google.com/spreadsheets/d/1iq5ufr1kXNrdrqI7avhDXk7Kl3dlEDSh7snOUYt5a7Q/edit",
+      "template_url": null,
+      "copy_url": null,
+      "web_app_url": null,
+      "apps_script_source_folder_url": "https://drive.google.com/drive/folders/16GHCyNRUyRPplJMynVU3v_xdIq-T8eja",
+      "web_app_source": "groups/c-crm-sales/base/web-app",
+      "web_app_local_tests": "52/52 PASS",
+      "gate": "G2_GOOGLE_PARTIAL",
+      "evidence": [
+        "releases/groups/C/base/1.0.0-vi/release-manifest.json",
+        "releases/groups/C/base/1.0.0-vi/web-app-manifest.json",
+        "delivery/evidence/GS-007-G2-PARTIAL-2026-10-07.json"
+      ],
+      "publishable": false
+    }
+  ]
+}

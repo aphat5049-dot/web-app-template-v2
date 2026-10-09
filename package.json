@@ -1,0 +1,11 @@
+{
+  "name": "gsheet-product-factory-v2",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs groups/c-crm-sales/base/tests/*.test.mjs",
+    "build:group-c": "node tools/build-group-c-base.mjs",
+    "verify:group-c": "node tools/verify-group-c-release.mjs"
+  }
+}

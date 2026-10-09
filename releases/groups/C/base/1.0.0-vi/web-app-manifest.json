@@ -1,0 +1,34 @@
+{
+  "asset_id": "GROUP-C-SALES-CORE-WEB@1.0.0-vi",
+  "parent_asset_id": "GROUP-C-SALES-CORE@1.0.0-vi",
+  "product_id": "GS-007",
+  "gate": "G1_LOCAL",
+  "publishable": false,
+  "runtime": "Google Apps Script V8",
+  "entrypoint": "doGet",
+  "files": {
+    "Code.gs": {
+      "sha256": "60e2185d029227f813bc3dfcfd37982593a1cb860ff84aebdc6a6ce63ca061c8"
+    },
+    "Index.html": {
+      "sha256": "1388ab90a16ceea3b93ade0354d3045b74b108e7c73bf6cbecbb971ebcedc5aa"
+    },
+    "appsscript.json": {
+      "sha256": "3027126a42615949b1e77982cdb85e36be2407f39d0993231ec26a5c6e9ae836"
+    }
+  },
+  "local_tests": {
+    "total": 52,
+    "passed": 52,
+    "failed": 0
+  },
+  "verified_behaviors": [
+    "Tính dòng báo giá 2 × 100.000, chiết khấu 10%, VAT 8% bằng 194.400",
+    "Chặn workflow sai, tự duyệt và từ chối thiếu lý do",
+    "Chặn formula injection khi ghi dữ liệu",
+    "Nhân viên chỉ truy cập báo giá do mình tạo hoặc phụ trách",
+    "Không ghi đè công thức khi chuyển trạng thái"
+  ],
+  "external_blocker": "Chưa chạy trên Google Sheets/Apps Script thật; chưa có Deployment ID và Web App /exec URL.",
+  "required_next_gate": "G2_GOOGLE_WEB_APP"
+}

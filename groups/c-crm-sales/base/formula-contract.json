@@ -1,0 +1,13 @@
+{
+  "locale": "vi_VN",
+  "google_formula_separator": ";",
+  "xlsx_formula_separator": ",",
+  "formula_rows": 500,
+  "rules": [
+    "Tỷ lệ chiết khấu ở cột H của CHI_TIẾT_BÁO_GIÁ là dữ liệu nhập từ 0 đến 1.",
+    "Đơn giá của báo giá/đơn đã vào workflow phải được chốt để bảo vệ lịch sử.",
+    "Chỉ thanh toán ĐÃ XÁC NHẬN được cộng vào thực thu.",
+    "Số lượng đã giao không được vượt số lượng đặt.",
+    "Dashboard chỉ đọc từ bảng nghiệp vụ và không cấp dữ liệu ngược về bảng nguồn."
+  ]
+}

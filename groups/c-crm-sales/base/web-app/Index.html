@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <base target="_top">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Quản lý Báo giá</title>
+  <style>
+    :root{--navy:#17365d;--blue:#1f4e78;--blue2:#2e75b6;--bg:#f4f7fb;--card:#fff;--text:#1f2937;--muted:#64748b;--line:#dbe3ec;--green:#198754;--amber:#b7791f;--red:#c0392b;--shadow:0 10px 30px rgba(23,54,93,.09)}
+    *{box-sizing:border-box}body{margin:0;font:14px/1.45 Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,select{font:inherit}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;background:linear-gradient(135deg,var(--navy),var(--blue2));color:#fff;position:sticky;top:0;z-index:20;box-shadow:var(--shadow)}
+    .brand h1{font-size:20px;margin:0}.brand p{margin:2px 0 0;opacity:.82;font-size:12px}.user{text-align:right;font-size:12px}.user strong{display:block;font-size:14px}
+    .shell{max-width:1320px;margin:auto;padding:22px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.toolbar h2{margin:0;font-size:22px}.actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{border:0;border-radius:8px;padding:10px 14px;cursor:pointer;font-weight:700}.btn:disabled{opacity:.5;cursor:not-allowed}.btn-primary{background:var(--blue);color:#fff}.btn-light{background:#fff;color:var(--blue);border:1px solid var(--line)}.btn-danger{background:var(--red);color:#fff}.btn-small{padding:6px 9px;font-size:12px}
+    .grid{display:grid;gap:16px}.metrics{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:18px}.metric,.panel{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}.metric{padding:17px}.metric .label{color:var(--muted);font-size:12px}.metric .value{font-size:22px;font-weight:800;margin-top:6px;color:var(--navy)}
+    .panel{overflow:hidden}.panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}.panel-head h3{margin:0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:930px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}th{background:#eef4fa;color:var(--navy);font-size:12px;position:sticky;top:0}tbody tr:hover{background:#f8fbff}.money{text-align:right;font-variant-numeric:tabular-nums}.badge{display:inline-block;border-radius:999px;padding:4px 8px;font-size:11px;font-weight:800;background:#e8eef5;color:var(--blue)}.badge.accept{background:#e6f4ea;color:var(--green)}.badge.reject{background:#fce8e6;color:var(--red)}.badge.wait{background:#fff4dc;color:var(--amber)}
+    .empty{padding:42px;text-align:center;color:var(--muted)}.loading{position:fixed;inset:0;background:rgba(255,255,255,.72);display:none;align-items:center;justify-content:center;z-index:60}.loading.show{display:flex}.spinner{width:42px;height:42px;border:4px solid #dbe7f1;border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .toast{position:fixed;right:22px;bottom:22px;max-width:420px;padding:13px 16px;border-radius:9px;background:#17365d;color:#fff;box-shadow:var(--shadow);display:none;z-index:80}.toast.error{background:var(--red)}.toast.show{display:block}
+    dialog{border:0;border-radius:14px;box-shadow:0 24px 90px rgba(15,23,42,.25);padding:0;width:min(920px,calc(100vw - 28px));max-height:90vh}dialog::backdrop{background:rgba(15,23,42,.55)}.modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;background:var(--navy);color:#fff}.modal-head h3{margin:0}.close{border:0;background:transparent;color:#fff;font-size:25px;cursor:pointer}.modal-body{padding:20px;overflow:auto;max-height:calc(90vh - 64px)}
+    .form-grid{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:16px}.field label{display:block;font-weight:700;margin-bottom:6px}.field input,.field select{width:100%;padding:10px 11px;border:1px solid #cbd5e1;border-radius:8px;background:#fff}.quote-lines{display:grid;gap:10px}.line-row{display:grid;grid-template-columns:2.2fr .75fr .8fr 1fr auto;gap:8px;align-items:end;padding:10px;background:#f8fafc;border:1px solid var(--line);border-radius:9px}.line-total{font-weight:800;padding:10px 0}.summary{display:flex;justify-content:flex-end;gap:24px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}.summary strong{font-size:19px;color:var(--navy)}
+    .detail-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}.detail-item{background:#f8fafc;border:1px solid var(--line);border-radius:8px;padding:10px}.detail-item span{display:block;color:var(--muted);font-size:12px}.detail-item strong{display:block;margin-top:3px}.workflow{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.error-box{display:none;margin:18px 0;padding:14px;background:#fce8e6;border:1px solid #f3b9b4;color:#8b1f17;border-radius:9px}.error-box.show{display:block}
+    @media(max-width:960px){.metrics{grid-template-columns:repeat(2,1fr)}.line-row{grid-template-columns:1fr 1fr}.line-row .product{grid-column:1/-1}.detail-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.topbar{padding:14px}.shell{padding:14px}.metrics{grid-template-columns:1fr 1fr}.toolbar{align-items:flex-start;flex-direction:column}.form-grid,.detail-grid{grid-template-columns:1fr}.line-row{grid-template-columns:1fr}.line-row .product{grid-column:auto}.user{display:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><h1>Quản lý Báo giá</h1><p>GROUP-C-SALES-CORE</p></div>
+    <div class="user"><strong id="actorName">Đang xác thực…</strong><span id="actorRole"></span></div>
+  </header>
+
+  <main class="shell">
+    <div id="fatalError" class="error-box"></div>
+    <section class="toolbar">
+      <h2>Tổng quan bán hàng</h2>
+      <div class="actions">
+        <button class="btn btn-light" type="button" onclick="loadApp()">Làm mới</button>
+        <button id="newQuoteButton" class="btn btn-primary" type="button" onclick="openQuoteForm()">Tạo báo giá</button>
+      </div>
+    </section>
+
+    <section class="grid metrics">
+      <article class="metric"><div class="label">Số báo giá</div><div id="metricQuotes" class="value">—</div></article>
+      <article class="metric"><div class="label">Tỷ lệ chuyển đổi</div><div id="metricConversion" class="value">—</div></article>
+      <article class="metric"><div class="label">Giá trị đơn</div><div id="metricOrders" class="value">—</div></article>
+      <article class="metric"><div class="label">Thực thu xác nhận</div><div id="metricCollected" class="value">—</div></article>
+      <article class="metric"><div class="label">Công nợ</div><div id="metricReceivable" class="value">—</div></article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h3>Danh sách báo giá</h3><span id="quoteCount" class="badge">0 bản ghi</span></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mã báo giá</th><th>Khách hàng</th><th>Ngày</th><th>Hạn hiệu lực</th><th>Trạng thái</th><th class="money">Tổng tiền</th><th>Phụ trách</th><th></th></tr></thead>
+          <tbody id="quoteRows"></tbody>
+        </table>
+        <div id="emptyQuotes" class="empty" hidden>Chưa có báo giá.</div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="quoteDialog">
+    <div class="modal-head"><h3>Tạo báo giá mới</h3><button class="close" type="button" onclick="closeDialog('quoteDialog')">×</button></div>
+    <form class="modal-body" onsubmit="submitQuote(event)">
+      <div class="form-grid">
+        <div class="field"><label for="customerId">Khách hàng</label><select id="customerId" required></select></div>
+        <div class="field"><label for="expiryDate">Hạn hiệu lực</label><input id="expiryDate" type="date" required></div>
+      </div>
+      <div class="panel-head" style="padding-left:0;padding-right:0"><h3>Sản phẩm</h3><button class="btn btn-light btn-small" type="button" onclick="addLine()">Thêm dòng</button></div>
+      <div id="quoteLines" class="quote-lines"></div>
+      <div class="summary"><span>Tổng thanh toán</span><strong id="draftTotal">0 ₫</strong></div>
+      <div class="actions" style="justify-content:flex-end;margin-top:18px"><button class="btn btn-light" type="button" onclick="closeDialog('quoteDialog')">Hủy</button><button class="btn btn-primary" type="submit">Lưu báo giá</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="detailDialog">
+    <div class="modal-head"><h3 id="detailTitle">Chi tiết báo giá</h3><button class="close" type="button" onclick="closeDialog('detailDialog')">×</button></div>
+    <div class="modal-body">
+      <div id="detailMeta" class="detail-grid"></div>
+      <div class="table-wrap"><table><thead><tr><th>Sản phẩm</th><th>ĐVT</th><th class="money">Số lượng</th><th class="money">Đơn giá</th><th class="money">CK</th><th class="money">VAT</th><th class="money">Thành tiền</th></tr></thead><tbody id="detailLines"></tbody></table></div>
+      <div class="summary"><span>Tổng thanh toán</span><strong id="detailTotal">0 ₫</strong></div>
+      <div id="workflowActions" class="workflow"></div>
+    </div>
+  </dialog>
+
+  <div id="loading" class="loading"><div class="spinner" aria-label="Đang tải"></div></div>
+  <div id="toast" class="toast"></div>
+
+  <script>
+    'use strict';
+    const state = { actor:null, permissions:{}, customers:[], products:[], quotes:[], currentQuote:null };
+
+    document.addEventListener('DOMContentLoaded', loadApp);
+
+    function callServer(name, ...args) {
+      return new Promise((resolve, reject) => {
+        google.script.run
+          .withSuccessHandler(resolve)
+          .withFailureHandler(error => reject(new Error(error && error.message ? error.message : String(error))))[name](...args);
+      });
+    }
+
+    async function loadApp() {
+      setLoading(true);
+      hideFatal();
+      try {
+        const data = await callServer('getBootstrapData');
+        Object.assign(state, data);
+        renderHeader(); renderDashboard(); renderQuotes();
+      } catch (error) {
+        showFatal(error.message);
+      } finally { setLoading(false); }
+    }
+
+    function renderHeader() {
+      document.getElementById('actorName').textContent = state.actor ? state.actor.name : 'Chưa xác thực';
+      document.getElementById('actorRole').textContent = state.actor ? state.actor.role : '';
+      document.getElementById('newQuoteButton').disabled = !state.permissions.canCreate;
+    }
+
+    function renderDashboard() {
+      const d = state.dashboard || {};
+      text('metricQuotes', formatNumber(d.quoteCount));
+      text('metricConversion', formatPercent(d.conversionRate));
+      text('metricOrders', formatMoney(d.orderValue));
+      text('metricCollected', formatMoney(d.collected));
+      text('metricReceivable', formatMoney(d.receivable));
+    }
+
+    function renderQuotes() {
+      const tbody = document.getElementById('quoteRows'); tbody.textContent = '';
+      const quotes = state.quotes || [];
+      document.getElementById('quoteCount').textContent = quotes.length + ' bản ghi';
+      document.getElementById('emptyQuotes').hidden = quotes.length > 0;
+      quotes.forEach(quote => {
+        const tr = document.createElement('tr');
+        appendCell(tr, quote.id);
+        appendCell(tr, quote.customerName || quote.customerId);
+        appendCell(tr, quote.quoteDate);
+        appendCell(tr, quote.expiryDate);
+        const statusCell = document.createElement('td'); const badge = document.createElement('span');
+        badge.className = 'badge ' + statusClass(quote.status); badge.textContent = quote.status; statusCell.appendChild(badge); tr.appendChild(statusCell);
+        appendCell(tr, formatMoney(quote.total), 'money');
+        appendCell(tr, quote.ownerId);
+        const actionCell = document.createElement('td'); const button = document.createElement('button');
+        button.type = 'button'; button.className = 'btn btn-light btn-small'; button.textContent = 'Xem'; button.onclick = () => openDetails(quote.id); actionCell.appendChild(button); tr.appendChild(actionCell);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openQuoteForm() {
+      if (!state.permissions.canCreate) return showToast('Bạn không có quyền lập báo giá.', true);
+      const customer = document.getElementById('customerId'); customer.textContent = '';
+      state.customers.forEach(item => { const option = document.createElement('option'); option.value = item.id; option.textContent = item.id + ' — ' + item.name; customer.appendChild(option); });
+      const expiry = new Date(); expiry.setDate(expiry.getDate() + 15); document.getElementById('expiryDate').value = expiry.toISOString().slice(0,10);
+      document.getElementById('quoteLines').textContent = ''; addLine(); recalculateDraft();
+      document.getElementById('quoteDialog').showModal();
+    }
+
+    function addLine() {
+      const host = document.getElementById('quoteLines');
+      const row = document.createElement('div'); row.className = 'line-row';
+      const productField = fieldWrap('Sản phẩm', 'product'); const select = document.createElement('select'); select.required = true;
+      state.products.forEach(item => { const option = document.createElement('option'); option.value = item.id; option.textContent = item.id + ' — ' + item.name; select.appendChild(option); });
+      productField.appendChild(select);
+      const qtyField = fieldWrap('Số lượng'); const qty = numberInput(1, .01, 1); qty.className = 'qty'; qtyField.appendChild(qty);
+      const discountField = fieldWrap('Chiết khấu %'); const discount = numberInput(0, .01, 0); discount.max = 100; discount.className = 'discount'; discountField.appendChild(discount);
+      const totalField = fieldWrap('Thành tiền'); const total = document.createElement('div'); total.className = 'line-total'; total.textContent = '0 ₫'; totalField.appendChild(total);
+      const remove = document.createElement('button'); remove.type = 'button'; remove.className = 'btn btn-light'; remove.textContent = 'Xóa'; remove.onclick = () => { if (host.children.length > 1) { row.remove(); recalculateDraft(); } };
+      [select, qty, discount].forEach(control => control.addEventListener('input', recalculateDraft));
+      row.append(productField, qtyField, discountField, totalField, remove); host.appendChild(row); recalculateDraft();
+    }
+
+    function recalculateDraft() {
+      let total = 0;
+      document.querySelectorAll('#quoteLines .line-row').forEach(row => {
+        const product = state.products.find(item => item.id === row.querySelector('select').value);
+        const qty = Number(row.querySelector('.qty').value || 0); const discount = Number(row.querySelector('.discount').value || 0) / 100;
+        const lineTotal = product ? qty * product.price * (1 - discount) * (1 + product.vatRate) : 0;
+        row.querySelector('.line-total').textContent = formatMoney(lineTotal); total += lineTotal;
+      });
+      text('draftTotal', formatMoney(total));
+    }
+
+    async function submitQuote(event) {
+      event.preventDefault();
+      const payload = {
+        customerId: document.getElementById('customerId').value,
+        expiryDate: document.getElementById('expiryDate').value,
+        lines: Array.from(document.querySelectorAll('#quoteLines .line-row')).map(row => ({
+          productId: row.querySelector('select').value,
+          quantity: Number(row.querySelector('.qty').value),
+          discountRate: Number(row.querySelector('.discount').value) / 100
+        }))
+      };
+      setLoading(true);
+      try {
+        const result = await callServer('createQuote', payload);
+        closeDialog('quoteDialog'); showToast('Đã tạo ' + result.quoteId + ' — ' + formatMoney(result.total)); await loadApp();
+      } catch (error) { showToast(error.message, true); } finally { setLoading(false); }
+    }
+
+    async function openDetails(id) {
+      setLoading(true);
+      try {
+        const result = await callServer('getQuoteDetails', id); state.currentQuote = result.quote;
+        text('detailTitle', result.quote.id);
+        const meta = document.getElementById('detailMeta'); meta.textContent = '';
+        [['Khách hàng',result.quote.customerName],['Ngày báo giá',result.quote.quoteDate],['Hạn hiệu lực',result.quote.expiryDate],['Trạng thái',result.quote.status],['Người phụ trách',result.quote.ownerId],['Phiên bản dòng',result.quote.rowVersion]].forEach(item => {
+          const box=document.createElement('div');box.className='detail-item';const label=document.createElement('span');label.textContent=item[0];const value=document.createElement('strong');value.textContent=item[1];box.append(label,value);meta.appendChild(box);
+        });
+        const lines=document.getElementById('detailLines');lines.textContent='';result.lines.forEach(line=>{const tr=document.createElement('tr');appendCell(tr,line.productName);appendCell(tr,line.unit);appendCell(tr,formatNumber(line.quantity),'money');appendCell(tr,formatMoney(line.unitPrice),'money');appendCell(tr,formatPercent(line.discountRate),'money');appendCell(tr,formatPercent(line.vatRate),'money');appendCell(tr,formatMoney(line.total),'money');lines.appendChild(tr);});
+        text('detailTotal',formatMoney(result.total)); renderWorkflow(result.quote); document.getElementById('detailDialog').showModal();
+      } catch(error){showToast(error.message,true);} finally{setLoading(false);}
+    }
+
+    function renderWorkflow(quote) {
+      const host=document.getElementById('workflowActions');host.textContent='';
+      (quote.actions||[]).forEach(target=>{const button=document.createElement('button');button.type='button';button.className='btn '+(target==='TỪ CHỐI'?'btn-danger':'btn-primary');button.textContent=actionLabel(target);button.onclick=()=>runTransition(target);host.appendChild(button);});
+      if(quote.status==='CHẤP NHẬN'&&quote.latest){const button=document.createElement('button');button.type='button';button.className='btn btn-primary';button.textContent='Chuyển thành đơn hàng';button.onclick=convertCurrentQuote;host.appendChild(button);}
+      const print=document.createElement('button');print.type='button';print.className='btn btn-light';print.textContent='In báo giá';print.onclick=()=>window.print();host.appendChild(print);
+    }
+
+    async function runTransition(target) {
+      let reason=''; if(target==='TỪ CHỐI'){reason=prompt('Nhập lý do từ chối:')||'';if(!reason.trim())return;}
+      setLoading(true);try{await callServer('transitionQuote',state.currentQuote.id,target,state.currentQuote.rowVersion,reason);closeDialog('detailDialog');showToast('Đã chuyển trạng thái sang '+target);await loadApp();}catch(error){showToast(error.message,true);}finally{setLoading(false);}
+    }
+
+    async function convertCurrentQuote(){setLoading(true);try{const result=await callServer('convertQuoteToOrder',state.currentQuote.id);closeDialog('detailDialog');showToast(result.created?'Đã tạo đơn '+result.orderId:'Đơn đã tồn tại: '+result.orderId);await loadApp();}catch(error){showToast(error.message,true);}finally{setLoading(false);}}
+
+    function appendCell(row,value,className){const td=document.createElement('td');td.textContent=value===undefined||value===null?'':String(value);if(className)td.className=className;row.appendChild(td);}
+    function fieldWrap(label,className){const wrapper=document.createElement('div');wrapper.className='field '+(className||'');const tag=document.createElement('label');tag.textContent=label;wrapper.appendChild(tag);return wrapper;}
+    function numberInput(value,step,min){const input=document.createElement('input');input.type='number';input.required=true;input.value=value;input.step=step;input.min=min;return input;}
+    function actionLabel(status){return {'CHỜ DUYỆT':'Gửi duyệt','ĐÃ DUYỆT':'Duyệt','ĐÃ GỬI':'Đánh dấu đã gửi','CHẤP NHẬN':'Khách chấp nhận','TỪ CHỐI':'Từ chối','HẾT HẠN':'Đánh dấu hết hạn','NHÁP':'Trả về nháp'}[status]||status;}
+    function statusClass(status){if(status==='CHẤP NHẬN'||status==='ĐÃ DUYỆT')return'accept';if(status==='TỪ CHỐI'||status==='HẾT HẠN')return'reject';if(status==='CHỜ DUYỆT'||status==='ĐÃ GỬI')return'wait';return'';}
+    function formatMoney(value){return new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND',maximumFractionDigits:0}).format(Number(value||0));}
+    function formatNumber(value){return new Intl.NumberFormat('vi-VN').format(Number(value||0));}
+    function formatPercent(value){return new Intl.NumberFormat('vi-VN',{style:'percent',maximumFractionDigits:1}).format(Number(value||0));}
+    function text(id,value){document.getElementById(id).textContent=value;}
+    function closeDialog(id){document.getElementById(id).close();}
+    function setLoading(show){document.getElementById('loading').classList.toggle('show',show);}
+    function showFatal(message){const box=document.getElementById('fatalError');box.textContent=message;box.classList.add('show');}
+    function hideFatal(){document.getElementById('fatalError').classList.remove('show');}
+    function showToast(message,isError){const box=document.getElementById('toast');box.textContent=message;box.className='toast show'+(isError?' error':'');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>box.classList.remove('show'),4500);}
+  </script>
+</body>
+</html>

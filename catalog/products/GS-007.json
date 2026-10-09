@@ -1,0 +1,13 @@
+{
+  "product_id": "GS-007",
+  "name": "Quản lý Báo giá",
+  "source_version": "v1.0",
+  "type": "WEB_APP",
+  "group": "C",
+  "group_base": "GROUP-C-SALES-CORE",
+  "family": "Báo giá",
+  "modules": ["customers", "products", "quotations", "approvals", "orders", "deliveries", "payments", "dashboard", "audit"],
+  "mapping_status": "PILOT_CONFIRMED_FOR_IMPLEMENTATION",
+  "source_description": "Lập báo giá và dự toán theo khối lượng, kích thước, đơn giá; quản lý phê duyệt và lịch sử sửa. Tổng hợp vật tư, giao khoán, chia kỳ thanh toán, chèn ảnh và xuất biểu mẫu Excel hoặc bản in.",
+  "implementation_note": "Vertical slice đầu tiên sử dụng lõi KD_BAO_GIA_DON_HANG đã kiểm thử; tính năng khối lượng, kích thước, ảnh và giao khoán là module mở rộng sau khi base đạt G2."
+}

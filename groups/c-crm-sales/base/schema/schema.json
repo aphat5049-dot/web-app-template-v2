@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "product_id": "KD_BAO_GIA_DON_HANG",
+  "version": "3.0.0-vi",
+  "locale": "vi-VN",
+  "common_columns_applied_to_all_tables": [
+    { "name": "TRANG_THAI", "display": "Trạng thái", "type": "text", "required": true, "validation": "Danh sách trạng thái của bảng" },
+    { "name": "PHIEN_BAN_DONG", "display": "Phiên bản dòng", "type": "integer", "required": true, "validation": ">= 1; bắt buộc khớp khi cập nhật" },
+    { "name": "NGAY_TAO", "display": "Ngày tạo", "type": "datetime", "required": true, "validation": "ISO-8601" },
+    { "name": "NGAY_CAP_NHAT", "display": "Ngày cập nhật", "type": "datetime", "required": true, "validation": "ISO-8601" },
+    { "name": "NGUOI_TAO", "display": "Người tạo", "type": "text", "required": true, "validation": "Mã nhân viên hoặc NGƯỜI_DÙNG_HỆ_THỐNG" },
+    { "name": "NGUOI_PHU_TRACH", "display": "Người phụ trách", "type": "text", "required": false, "validation": "Ref NHAN_VIEN.MA_NHAN_VIEN khi có giá trị" }
+  ],
+  "tables": [
+    {
+      "name": "KHACH_HANG",
+      "display": "Khách hàng",
+      "primary_key": "MA_KHACH_HANG",
+      "uses_common_columns": true,
+      "statuses": ["ĐANG HOẠT ĐỘNG", "NGỪNG HOẠT ĐỘNG"],
+      "columns": [
+        { "name": "MA_KHACH_HANG", "display": "Mã khách hàng", "type": "text", "required": true, "validation": "^KH-[0-9]{3,}$" },
+        { "name": "TEN_KHACH_HANG", "display": "Tên khách hàng", "type": "text", "required": true, "validation": "1–200 ký tự" },
+        { "name": "NHOM_KHACH_HANG", "display": "Nhóm khách hàng", "type": "enum", "required": true, "validation": "DOANH NGHIỆP|HỘ KINH DOANH|CÁ NHÂN" },
+        { "name": "SO_DIEN_THOAI", "display": "Số điện thoại", "type": "text", "required": false, "validation": "Số điện thoại Việt Nam giả lập" },
+        { "name": "DIA_CHI", "display": "Địa chỉ", "type": "text", "required": false, "validation": "Không chứa dữ liệu cá nhân thật" },
+        { "name": "HAN_MUC_TIN_DUNG", "display": "Hạn mức tín dụng", "type": "number", "required": true, "validation": ">= 0" }
+      ]
+    },
+    {
+      "name": "SAN_PHAM",
+      "display": "Sản phẩm",
+      "primary_key": "MA_SAN_PHAM",
+      "uses_common_columns": true,
+      "statuses": ["ĐANG KINH DOANH", "NGỪNG KINH DOANH"],
+      "columns": [
+        { "name": "MA_SAN_PHAM", "display": "Mã sản phẩm", "type": "text", "required": true, "validation": "^SP-[0-9]{3,}$" },
+        { "name": "TEN_SAN_PHAM", "display": "Tên sản phẩm", "type": "text", "required": true, "validation": "1–200 ký tự" },
+        { "name": "DON_VI_TINH", "display": "Đơn vị tính", "type": "text", "required": true, "validation": "Cái|Bộ|Gói|Giờ|Tháng" },
+        { "name": "DON_GIA", "display": "Đơn giá", "type": "number", "required": true, "validation": ">= 0" },
+        { "name": "GIA_VON", "display": "Giá vốn", "type": "number", "required": false, "validation": ">= 0" },
+        { "name": "THUE_SUAT", "display": "Thuế suất", "type": "number", "required": true, "validation": "0–1" }
+      ]
+    },
+    {
+      "name": "NHAN_VIEN",
+      "display": "Nhân viên",
+      "primary_key": "MA_NHAN_VIEN",
+      "uses_common_columns": true,
+      "statuses": ["ĐANG LÀM VIỆC", "NGỪNG LÀM VIỆC"],
+      "columns": [
+        { "name": "MA_NHAN_VIEN", "display": "Mã nhân viên", "type": "text", "required": true, "validation": "^NV-[0-9]{3,}$" },
+        { "name": "TEN_NHAN_VIEN", "display": "Tên nhân viên", "type": "text", "required": true, "validation": "Tên giả lập tiếng Việt" },
+        { "name": "VAI_TRO", "display": "Vai trò", "type": "enum", "required": true, "validation": "TRƯỞNG PHÒNG|SALES ADMIN|KINH DOANH|KẾ TOÁN|GIAO NHẬN" },
+        { "name": "EMAIL_DANG_NHAP", "display": "Email đăng nhập", "type": "text", "required": true, "validation": "Email Google duy nhất; tab chỉ chủ cài đặt được sửa" }
+      ]
+    },
+    {
+      "name": "BAO_GIA",
+      "display": "Báo giá",
+      "primary_key": "MA_BAO_GIA_REVISION",
+      "uses_common_columns": true,
+      "statuses": ["NHÁP", "CHỜ DUYỆT", "ĐÃ DUYỆT", "ĐÃ GỬI", "CHẤP NHẬN", "TỪ CHỐI", "HẾT HẠN"],
+      "columns": [
+        { "name": "MA_BAO_GIA_REVISION", "display": "Mã báo giá revision", "type": "text", "required": true, "validation": "^BG-[0-9]{3,}-R[0-9]+$" },
+        { "name": "MA_BAO_GIA", "display": "Mã báo giá", "type": "text", "required": true, "validation": "^BG-[0-9]{3,}$" },
+        { "name": "REVISION", "display": "Revision", "type": "integer", "required": true, "validation": ">= 1; duy nhất theo mã báo giá" },
+        { "name": "LA_REVISION_MOI_NHAT", "display": "Là revision mới nhất", "type": "boolean", "required": true, "validation": "Chỉ một revision đúng trên mỗi mã báo giá" },
+        { "name": "MA_KHACH_HANG", "display": "Mã khách hàng", "type": "ref", "required": true, "ref": "KHACH_HANG.MA_KHACH_HANG", "validation": "Ref tồn tại" },
+        { "name": "NGAY_BAO_GIA", "display": "Ngày báo giá", "type": "date", "required": true, "validation": "ISO date" },
+        { "name": "HAN_HIEU_LUC", "display": "Hạn hiệu lực", "type": "date", "required": true, "validation": ">= ngày báo giá" },
+        { "name": "TONG_THANH_TOAN", "display": "Tổng thanh toán", "type": "formula", "required": true, "validation": "SUMIFS theo mã báo giá revision" },
+        { "name": "NGUOI_DUYET", "display": "Người duyệt", "type": "ref", "required": false, "ref": "NHAN_VIEN.MA_NHAN_VIEN", "validation": "TRƯỞNG PHÒNG hoặc SALES ADMIN; khác người tạo khi cấu hình yêu cầu" },
+        { "name": "THOI_DIEM_DUYET", "display": "Thời điểm duyệt", "type": "datetime", "required": false, "validation": "Bắt buộc khi duyệt hoặc từ chối" },
+        { "name": "LY_DO_TU_CHOI", "display": "Lý do từ chối", "type": "text", "required": false, "validation": "Bắt buộc khi trạng thái TỪ CHỐI" },
+        { "name": "MA_DON_HANG", "display": "Mã đơn hàng", "type": "ref", "required": false, "ref": "DON_HANG.MA_DON_HANG", "validation": "Duy nhất khi đã chuyển đơn" }
+      ]
+    },
+    {
+      "name": "CHI_TIET_BAO_GIA",
+      "display": "Chi tiết báo giá",
+      "primary_key": "MA_DONG_BAO_GIA",
+      "uses_common_columns": true,
+      "statuses": ["HIỆU LỰC", "HỦY DÒNG"],
+      "columns": [
+        { "name": "MA_DONG_BAO_GIA", "display": "Mã dòng báo giá", "type": "text", "required": true, "validation": "^DBG-[0-9]{3,}$" },
+        { "name": "MA_BAO_GIA_REVISION", "display": "Mã báo giá revision", "type": "ref", "required": true, "ref": "BAO_GIA.MA_BAO_GIA_REVISION", "validation": "Ref tồn tại" },
+        { "name": "MA_SAN_PHAM", "display": "Mã sản phẩm", "type": "ref", "required": true, "ref": "SAN_PHAM.MA_SAN_PHAM", "validation": "Ref tồn tại" },
+        { "name": "SO_LUONG", "display": "Số lượng", "type": "number", "required": true, "validation": "> 0" },
+        { "name": "DON_GIA", "display": "Đơn giá", "type": "number", "required": true, "validation": ">= 0" },
+        { "name": "TY_LE_CHIET_KHAU", "display": "Tỷ lệ chiết khấu", "type": "number", "required": true, "validation": "0–1" },
+        { "name": "THUE_SUAT", "display": "Thuế suất", "type": "number", "required": true, "validation": "0–1" },
+        { "name": "TONG_DONG", "display": "Tổng tiền dòng", "type": "formula", "required": true, "validation": "Sau chiết khấu và VAT" }
+      ]
+    },
+    {
+      "name": "DON_HANG",
+      "display": "Đơn hàng",
+      "primary_key": "MA_DON_HANG",
+      "uses_common_columns": true,
+      "statuses": ["MỚI", "XÁC NHẬN", "ĐANG GIAO", "GIAO MỘT PHẦN", "HOÀN TẤT", "HỦY"],
+      "columns": [
+        { "name": "MA_DON_HANG", "display": "Mã đơn hàng", "type": "text", "required": true, "validation": "^DH-[0-9]{3,}$" },
+        { "name": "MA_BAO_GIA_REVISION", "display": "Mã báo giá revision", "type": "ref", "required": false, "ref": "BAO_GIA.MA_BAO_GIA_REVISION", "validation": "Duy nhất khi có giá trị" },
+        { "name": "MA_KHACH_HANG", "display": "Mã khách hàng", "type": "ref", "required": true, "ref": "KHACH_HANG.MA_KHACH_HANG", "validation": "Ref tồn tại" },
+        { "name": "KENH_BAN", "display": "Kênh bán", "type": "enum", "required": true, "validation": "TRỰC TIẾP|ĐIỆN THOẠI|WEBSITE|ĐỐI TÁC" },
+        { "name": "NGAY_DAT", "display": "Ngày đặt", "type": "date", "required": true, "validation": "ISO date" },
+        { "name": "HAN_THANH_TOAN", "display": "Hạn thanh toán", "type": "date", "required": true, "validation": ">= ngày đặt" },
+        { "name": "TONG_DON_HANG", "display": "Tổng đơn hàng", "type": "formula", "required": true, "validation": "SUMIFS chi tiết đơn" },
+        { "name": "THUC_THU", "display": "Thực thu", "type": "formula", "required": true, "validation": "Chỉ thanh toán đã xác nhận" },
+        { "name": "CONG_NO", "display": "Công nợ", "type": "formula", "required": true, "validation": "MAX(0, tổng đơn - thực thu)" }
+      ]
+    },
+    {
+      "name": "CHI_TIET_DON_HANG",
+      "display": "Chi tiết đơn hàng",
+      "primary_key": "MA_DONG_DON_HANG",
+      "uses_common_columns": true,
+      "statuses": ["CHỜ GIAO", "ĐANG GIAO", "ĐỦ", "HỦY DÒNG"],
+      "columns": [
+        { "name": "MA_DONG_DON_HANG", "display": "Mã dòng đơn hàng", "type": "text", "required": true, "validation": "^DDH-[0-9]{3,}$" },
+        { "name": "MA_DON_HANG", "display": "Mã đơn hàng", "type": "ref", "required": true, "ref": "DON_HANG.MA_DON_HANG", "validation": "Ref tồn tại" },
+        { "name": "MA_SAN_PHAM", "display": "Mã sản phẩm", "type": "ref", "required": true, "ref": "SAN_PHAM.MA_SAN_PHAM", "validation": "Ref tồn tại" },
+        { "name": "SO_LUONG_DAT", "display": "Số lượng đặt", "type": "number", "required": true, "validation": "> 0" },
+        { "name": "DON_GIA", "display": "Đơn giá", "type": "number", "required": true, "validation": ">= 0" },
+        { "name": "TONG_DONG", "display": "Tổng tiền dòng", "type": "formula", "required": true, "validation": "Số lượng × đơn giá" },
+        { "name": "DA_GIAO", "display": "Số lượng đã giao", "type": "formula", "required": true, "validation": "SUMIFS chi tiết giao" },
+        { "name": "CON_PHAI_GIAO", "display": "Số lượng còn phải giao", "type": "formula", "required": true, "validation": "MAX(0, đặt - đã giao)" }
+      ]
+    },
+    {
+      "name": "GIAO_HANG",
+      "display": "Giao hàng",
+      "primary_key": "MA_GIAO_HANG",
+      "uses_common_columns": true,
+      "statuses": ["CHỜ GIAO", "ĐANG GIAO", "ĐÃ GIAO", "HỦY"],
+      "columns": [
+        { "name": "MA_GIAO_HANG", "display": "Mã giao hàng", "type": "text", "required": true, "validation": "^GH-[0-9]{3,}$" },
+        { "name": "MA_DON_HANG", "display": "Mã đơn hàng", "type": "ref", "required": true, "ref": "DON_HANG.MA_DON_HANG", "validation": "Đơn không ở trạng thái hủy" },
+        { "name": "NGAY_GIAO", "display": "Ngày giao", "type": "date", "required": true, "validation": "ISO date" },
+        { "name": "DOT_GIAO", "display": "Đợt giao", "type": "integer", "required": true, "validation": ">= 1; duy nhất theo đơn" }
+      ]
+    },
+    {
+      "name": "CHI_TIET_GIAO_HANG",
+      "display": "Chi tiết giao hàng",
+      "primary_key": "MA_DONG_GIAO_HANG",
+      "uses_common_columns": true,
+      "statuses": ["ĐÃ GIAO", "HỦY DÒNG"],
+      "columns": [
+        { "name": "MA_DONG_GIAO_HANG", "display": "Mã dòng giao hàng", "type": "text", "required": true, "validation": "^DGH-[0-9]{3,}$" },
+        { "name": "MA_GIAO_HANG", "display": "Mã giao hàng", "type": "ref", "required": true, "ref": "GIAO_HANG.MA_GIAO_HANG", "validation": "Ref tồn tại" },
+        { "name": "MA_DONG_DON_HANG", "display": "Mã dòng đơn hàng", "type": "ref", "required": true, "ref": "CHI_TIET_DON_HANG.MA_DONG_DON_HANG", "validation": "Ref tồn tại" },
+        { "name": "SO_LUONG_GIAO", "display": "Số lượng giao", "type": "number", "required": true, "validation": "> 0 và tổng giao <= số lượng đặt" }
+      ]
+    },
+    {
+      "name": "THANH_TOAN",
+      "display": "Thanh toán",
+      "primary_key": "MA_THANH_TOAN",
+      "uses_common_columns": true,
+      "statuses": ["CHỜ XÁC NHẬN", "ĐÃ XÁC NHẬN", "HỦY"],
+      "columns": [
+        { "name": "MA_THANH_TOAN", "display": "Mã thanh toán", "type": "text", "required": true, "validation": "^TT-[0-9]{3,}$" },
+        { "name": "MA_DON_HANG", "display": "Mã đơn hàng", "type": "ref", "required": true, "ref": "DON_HANG.MA_DON_HANG", "validation": "Ref tồn tại" },
+        { "name": "NGAY_THANH_TOAN", "display": "Ngày thanh toán", "type": "date", "required": true, "validation": "ISO date" },
+        { "name": "SO_TIEN", "display": "Số tiền", "type": "number", "required": true, "validation": "> 0" },
+        { "name": "HINH_THUC", "display": "Hình thức", "type": "enum", "required": true, "validation": "CHUYỂN KHOẢN|TIỀN MẶT|THU HỘ" }
+      ]
+    },
+    {
+      "name": "CAU_HINH",
+      "display": "Cấu hình",
+      "primary_key": "KHOA_CAU_HINH",
+      "uses_common_columns": true,
+      "statuses": ["ĐANG ÁP DỤNG", "NGỪNG ÁP DỤNG"],
+      "columns": [
+        { "name": "KHOA_CAU_HINH", "display": "Khóa cấu hình", "type": "text", "required": true, "validation": "Chữ hoa và dấu gạch dưới" },
+        { "name": "GIA_TRI", "display": "Giá trị", "type": "text", "required": true, "validation": "Không chứa bí mật" },
+        { "name": "MO_TA", "display": "Mô tả", "type": "text", "required": true, "validation": "Tiếng Việt" }
+      ]
+    },
+    {
+      "name": "NHAT_KY",
+      "display": "Nhật ký",
+      "primary_key": "MA_NHAT_KY",
+      "uses_common_columns": true,
+      "statuses": ["THÀNH CÔNG", "BỊ TỪ CHỐI", "LỖI"],
+      "columns": [
+        { "name": "MA_NHAT_KY", "display": "Mã nhật ký", "type": "text", "required": true, "validation": "UUID hoặc mã bằng chứng" },
+        { "name": "THAO_TAC", "display": "Thao tác", "type": "text", "required": true, "validation": "Tiếng Việt" },
+        { "name": "THUC_THE", "display": "Thực thể", "type": "text", "required": true, "validation": "Tên bảng" },
+        { "name": "MA_THUC_THE", "display": "Mã thực thể", "type": "text", "required": false, "validation": "ID đã làm sạch" },
+        { "name": "CHI_TIET_DA_CHE", "display": "Chi tiết đã che", "type": "text", "required": true, "validation": "Không lưu dữ liệu nhạy cảm" }
+      ]
+    },
+    {
+      "name": "DASHBOARD",
+      "display": "Dashboard",
+      "primary_key": "MA_CHI_SO",
+      "uses_common_columns": true,
+      "statuses": ["ĐANG HIỂN THỊ", "ẨN"],
+      "columns": [
+        { "name": "MA_CHI_SO", "display": "Mã chỉ số", "type": "text", "required": true, "validation": "Duy nhất" },
+        { "name": "TEN_CHI_SO", "display": "Tên chỉ số", "type": "text", "required": true, "validation": "Nhãn tiếng Việt" },
+        { "name": "GIA_TRI", "display": "Giá trị", "type": "formula", "required": true, "validation": "Công thức truy vết về bảng nguồn" },
+        { "name": "BO_LOC_THOI_GIAN", "display": "Bộ lọc thời gian", "type": "date_range", "required": false, "validation": "Từ ngày <= đến ngày" },
+        { "name": "BO_LOC_TRANG_THAI", "display": "Bộ lọc trạng thái", "type": "text", "required": false, "validation": "Trạng thái hợp lệ" },
+        { "name": "BO_LOC_PHU_TRACH", "display": "Bộ lọc người phụ trách", "type": "ref", "required": false, "ref": "NHAN_VIEN.MA_NHAN_VIEN", "validation": "Ref tồn tại" }
+      ]
+    }
+  ]
+}

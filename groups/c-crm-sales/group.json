@@ -1,0 +1,9 @@
+{
+  "group_id": "C",
+  "slug": "c-crm-sales",
+  "name": "CRM, bán hàng & khách hàng",
+  "base_id": "GROUP-C-SALES-CORE",
+  "base_name": "Khách hàng, sản phẩm và pipeline bán hàng",
+  "release_order": ["GS-007", "GS-014", "GS-021", "GS-023"],
+  "required_gates": ["G0_SOURCE", "G1_LOCAL", "G2_GOOGLE", "G3_ASSET", "G4_STOREFRONT"]
+}

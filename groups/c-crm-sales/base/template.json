@@ -1,0 +1,22 @@
+{
+  "template_id": "GROUP-C-SALES-CORE",
+  "version": "1.0.0-vi",
+  "locale": "vi_VN",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "max_rows": 500,
+  "pilot_product": "GS-007",
+  "modules": {
+    "customers": "required",
+    "products": "required",
+    "quotations": "enabled",
+    "approvals": "enabled",
+    "orders": "enabled",
+    "deliveries": "enabled",
+    "payments": "enabled",
+    "dashboard": "enabled",
+    "audit": "required"
+  },
+  "install_modes": ["demo", "clean"],
+  "release_gate": "G1_LOCAL",
+  "external_status": "BLOCKED_PENDING_GOOGLE_DRIVE_CONNECTION"
+}

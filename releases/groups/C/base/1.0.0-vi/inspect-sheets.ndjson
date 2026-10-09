@@ -1,0 +1,15 @@
+{"kind":"sheet","id":"ws/azfsmt","name":"BẮT_ĐẦU","index":0,"range":"A1:B14","address":"A1:B14"}
+{"kind":"sheet","id":"ws/vfgkei","name":"DASHBOARD","index":1,"range":"A1:E21","address":"A1:E21"}
+{"kind":"sheet","id":"ws/z7x9hr","name":"BÁO_GIÁ","index":2,"range":"A1:Q7","address":"A1:Q7"}
+{"kind":"sheet","id":"ws/8kaehb","name":"CHI_TIẾT_BÁO_GIÁ","index":3,"range":"A1:N10","address":"A1:N10"}
+{"kind":"sheet","id":"ws/vvwscf","name":"ĐƠN_HÀNG","index":4,"range":"A1:O6","address":"A1:O6"}
+{"kind":"sheet","id":"ws/53rawo","name":"CHI_TIẾT_ĐƠN_HÀNG","index":5,"range":"A1:K9","address":"A1:K9"}
+{"kind":"sheet","id":"ws/qtri8m","name":"GIAO_HÀNG","index":6,"range":"A1:E3","address":"A1:E3"}
+{"kind":"sheet","id":"ws/vd1m9r","name":"CHI_TIẾT_GIAO_HÀNG","index":7,"range":"A1:E3","address":"A1:E3"}
+{"kind":"sheet","id":"ws/2ivk3g","name":"THANH_TOÁN","index":8,"range":"A1:F5","address":"A1:F5"}
+{"kind":"sheet","id":"ws/0sii5m","name":"KHÁCH_HÀNG","index":9,"range":"A1:F7","address":"A1:F7"}
+{"kind":"sheet","id":"ws/etpmxq","name":"SẢN_PHẨM","index":10,"range":"A1:G9","address":"A1:G9"}
+{"kind":"sheet","id":"ws/grms6c","name":"NGƯỜI_DÙNG","index":11,"range":"A1:D7","address":"A1:D7"}
+{"kind":"sheet","id":"ws/a5nqr1","name":"CẤU_HÌNH","index":12,"range":"A1:C5","address":"A1:C5"}
+{"kind":"sheet","id":"ws/ybwor1","name":"NHẬT_KÝ","index":13,"range":"A1:F1","address":"A1:F1"}
+{"kind":"sheet","id":"ws/9s6aiy","name":"HƯỚNG_DẪN","index":14,"range":"A1:B11","address":"A1:B11"}

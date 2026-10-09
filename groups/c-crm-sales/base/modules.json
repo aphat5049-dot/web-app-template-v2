@@ -1,0 +1,13 @@
+{
+  "contracts": [
+    {"id":"customers","owns":["KHÁCH_HÀNG","NGƯỜI_DÙNG"],"depends_on":[]},
+    {"id":"products","owns":["SẢN_PHẨM"],"depends_on":[]},
+    {"id":"quotations","owns":["BÁO_GIÁ","CHI_TIẾT_BÁO_GIÁ"],"depends_on":["customers","products"]},
+    {"id":"approvals","owns":[],"depends_on":["quotations","audit"]},
+    {"id":"orders","owns":["ĐƠN_HÀNG","CHI_TIẾT_ĐƠN_HÀNG"],"depends_on":["customers","products","quotations"]},
+    {"id":"deliveries","owns":["GIAO_HÀNG","CHI_TIẾT_GIAO_HÀNG"],"depends_on":["orders"]},
+    {"id":"payments","owns":["THANH_TOÁN"],"depends_on":["orders"]},
+    {"id":"dashboard","owns":["DASHBOARD"],"depends_on":["quotations","orders","deliveries","payments"]},
+    {"id":"audit","owns":["NHẬT_KÝ"],"depends_on":[]}
+  ]
+}
